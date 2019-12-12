@@ -27,7 +27,7 @@ public class OnChatServer {
                 Scanner sc = new Scanner(System.in);
                 String inmessage = din.readUTF();
                 String outmessage = sc.nextLine();
-                dout.writeUTF("sobaka");
+                dout.writeUTF(outmessage);
                 System.out.println("Client: " + inmessage);
                 System.out.println("Me: " + outmessage);
 
