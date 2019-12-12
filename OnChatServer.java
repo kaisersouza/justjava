@@ -1,6 +1,5 @@
 import java.net.*;
 import java.io.*;
-import java.util.Scanner;
 
 public class OnChatServer {
 
@@ -21,19 +20,17 @@ public class OnChatServer {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client has connected " + (count++));
 
+                OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-                DataInputStream din = new DataInputStream(clientSocket.getInputStream());
-                DataOutputStream dout = new DataOutputStream(clientSocket.getOutputStream());
-                Scanner sc = new Scanner(System.in);
-                String inmessage = din.readUTF();
-                String outmessage = sc.nextLine();
-                dout.writeUTF(outmessage);
-                System.out.println("Client: " + inmessage);
-                System.out.println("Me: " + outmessage);
+                String name = reader.readLine();
+                System.out.println(name);
+                String response = ("Ur message length = " + name.length());
+                writer.write(response);
+                writer.flush();
 
-
-                din.close();
-                dout.close();
+                writer.close();
+                reader.close();
 
 
                 clientSocket.close();
