@@ -18,25 +18,24 @@ public class OnChatServer {
             while (true) {
 
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Client has connected " + (count++));
+                System.out.println("Client has connected " + (count));
 
-                OutputStreamWriter writer = new OutputStreamWriter(clientSocket.getOutputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                String request = reader.readLine();
+                System.out.println("Client #" + count + ": " + request);
 
-                String name = reader.readLine();
-                System.out.println(name);
-                String response = ("Ur message length = " + name.length());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+                String response = "SERVER ACCEPTED UR MESSAGE";
                 writer.write(response);
                 writer.flush();
 
                 writer.close();
                 reader.close();
-
-
                 clientSocket.close();
 
 
             }
+
             //serverSocket.close();
 
 
